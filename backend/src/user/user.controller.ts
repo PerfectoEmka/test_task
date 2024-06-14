@@ -28,6 +28,6 @@ export class UserController {
         req.on('close', () => {
             abortController.abort();
         });
-        return this.userService.findUsers(query.email, query.number, abortController.signal);
+        return await this.userService.findUsers(query.email, query.number, abortController.signal);
     }
 }

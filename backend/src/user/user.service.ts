@@ -26,12 +26,14 @@ export class UserService {
         );
     }
 
-    private delay(ms: number, signal?: AbortSignal) {
+    private delay(ms: number, signal?: AbortSignal): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             const timeout = setTimeout(resolve, ms);
+
             if (signal) {
                 signal.addEventListener('abort', () => {
                     clearTimeout(timeout);
+                    reject('Request was aborted');
                 });
             }
         });
